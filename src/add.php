@@ -1,6 +1,7 @@
-<?php session_start(); ?>
+<?php 
+session_start(); 
 
-<?php
+
 if(!isset($_SESSION['logged'])) {
 	header('Location: login.php');
 }
