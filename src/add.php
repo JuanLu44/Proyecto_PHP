@@ -5,32 +5,19 @@ session_start();
 if(!isset($_SESSION['logged'])) {
 	header('Location: login.php');
 }
-?>
+	
+include_once("views/header.php");
 
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">	
-	<title>Add Data</title>
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"  crossorigin="anonymous">
-</head>
-
-<body>
-<div class = "container">
-		<div class="jumbotron">
-			<h1 class="display-4">Simple LAMP web app</h1>
-			<p class="lead">Demo app</p>
-		</div>
-			
-
-<?php
 //including the database connection file
 include_once("config.php");
 
-if(isset($_POST['name']) && isset($_POST['qty']) && isset($_POST['price'])) {	
-	$name = $_POST['name'];
-	$qty = $_POST['qty'];
-	$price = $_POST['price'];
+if(isset($_POST['name']) && isset($_POST['qty']) && isset($_POST['price'])) {
+	// Saneamos los parámetros que recibimos del formulario
+	
+	$name = $mysqli->real_escape_string($_POST['name']);
+	$qty = $mysqli->real_escape_string($_POST['qty']);
+	$price = $mysqli-> real_escape_string($_POST['price']);
+	
 	$loginId = $_SESSION['id'];
 		
 	// checking empty fields
@@ -60,9 +47,10 @@ if(isset($_POST['name']) && isset($_POST['qty']) && isset($_POST['price'])) {
 		echo "<font color='green'>Data added successfully.";
 		echo "<br/><a href='view.php'>View Result</a>";
 	}
+} else {
+	include_once("views/add.php");
 }
+
+include_once("views/footer.php");
 ?>
 
-</div>
-</body>
-</html>
